@@ -1,7 +1,0 @@
-parameters:
-#    dg_jira_auth.example.class: DG\JiraAuthBundle\Example
-
-services:
-#    dg_jira_auth.example:
-#        class: %dg_jira_auth.example.class%
-#        arguments: [@service_id, "plain_value", %parameter%]
