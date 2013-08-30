@@ -12,7 +12,8 @@
         }
     ],
     "require": {
-        "php": ">=5.3"
+        "php": ">=5.3",
+        "kriswallsmith/buzz" : "*"
     },
     "autoload": {
         "psr-0": { "DG\\JiraAuthBundle": "" }

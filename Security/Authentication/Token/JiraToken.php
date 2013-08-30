@@ -10,7 +10,7 @@ class JiraToken extends AbstractToken
     protected $jira_login;
     protected $jira_password;
 
-    public function __construct(array $roles = array('ROLE_ADMIN', 'IS_AUTHENTICATED_REMEMBERED')){
+    public function __construct(array $roles = array('ROLE_USER', 'IS_AUTHENTICATED_REMEMBERED')){
         parent::__construct($roles);
         $this->setAuthenticated(count($roles) > 0);
     }
