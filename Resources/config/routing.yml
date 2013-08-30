@@ -2,10 +2,14 @@ dg_jira_auth_homepage:
     pattern:  /hello_jira/{name}
     defaults: { _controller: DGJiraAuthBundle:Default:index }
 
-dg_jira_auth_homepage:
-    pattern:  /public/{alias}
+dg_jira_auth_public:
+    pattern:  /public
     defaults: { _controller: DGJiraAuthBundle:Default:showPublicPage }
 
-dg_jira_auth_homepage:
-    pattern:  /private/{alias}
+dg_jira_auth_login:
+    pattern:  /login
+    defaults: { _controller: DGJiraAuthBundle:Default:showLoginPage }
+
+dg_jira_auth_private:
+    pattern:  /private
     defaults: { _controller: DGJiraAuthBundle:Default:showPrivatePage }
