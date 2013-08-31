@@ -2,9 +2,11 @@
 
 namespace DG\JiraAuthBundle\Security\Provider;
 
+use DG\JiraAuthBundle\Entity\User;
 use DG\JiraAuthBundle\Security\Authenticatin\Token\JiraToken;
 use Symfony\Component\Security\Core\Authentication\Provider\AuthenticationProviderInterface;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
+use Symfony\Component\Security\Core\Exception\AuthenticationException;
 
 class JiraProvider implements AuthenticationProviderInterface {
 
@@ -22,5 +24,19 @@ class JiraProvider implements AuthenticationProviderInterface {
 
     public function authenticate(TokenInterface $token)
     {
+        $this->checkUserAuthentication($token);
+
+        $user = new User();
+        $user->setRoles(array('ROLE_USER'));
+        $user->setEmail('test@mail.ru');
+        $user->setUsername('test');
+
+        $token->setUser($user);
+    }
+
+    public function checkUserAuthentication(JiraToken $token){
+        if($token->getJiraLogin() != 'test' || $token->getJiraPassword() != '123456'){
+            throw new AuthenticationException('Incorrect login/password!');
+        }
     }
 }
