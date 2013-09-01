@@ -1,7 +1,36 @@
 parameters:
     dg_jira_auth.listener.class: DG\JiraAuthBundle\Security\Firewall\JiraListener
+    dg_jira_auth.provider.class: DG\JiraAuthBundle\Security\Authentication\Provider\JiraProvider
+    dg_jira_auth.handler.class: DG\JiraAuthBundle\Security\Authentication\Handler\JiraAuthenticationHandler
 
 services:
+    dg_jira_auth.logout_handler:
+        class: %dg_jira_auth.handler.class%
+
+    dg_jira_auth.authenication_success_handler:
+        class: %dg_jira_auth.handler.class%
+
+    dg_jira_auth.authenication_failure_handler:
+        class: %dg_jira_auth.handler.class%
+
+    dg_jira_auth.authenication_provider:
+        class: %dg_jira_auth.provider.class%
+
+    dg_jira_auth.authenication_listener:
+        class: %dg_jira_auth.listener.class%
+        arguments:
+            - @security.context
+            - @security.authentication.manager
+            - @security.authentication.session_strategy
+            - @security.http_utils
+            - ''
+            - @dg_jira_auth.authenication_success_handler
+            - @dg_jira_auth.authenication_failure_handler
+            - ''
+            - @logger
+            - @event_dispatcher
+
 #    dg_jira_auth.example:
 #        class: %dg_jira_auth.example.class%
 #        arguments: [@service_id, "plain_value", %parameter%]
+
