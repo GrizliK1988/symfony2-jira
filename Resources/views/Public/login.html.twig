@@ -1,2 +1,14 @@
-You are not authenticated!
-Fill login form, please.
+<html>
+<head></head>
+<body>
+    You are not authenticated!
+    Fill login form, please.
+
+    <form action="{{ path('dg_jira_auth_check_path') }}" method="POST">
+        <input type="text" name="_username">
+        <input type="password" name="_password">
+        <input type="submit">
+    </form>
+</body>
+</html>
+
