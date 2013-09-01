@@ -7,16 +7,16 @@ services:
     dg_jira_auth.logout_handler:
         class: %dg_jira_auth.handler.class%
 
-    dg_jira_auth.authenication_success_handler:
+    dg_jira_auth.authentication_success_handler:
         class: %dg_jira_auth.handler.class%
 
-    dg_jira_auth.authenication_failure_handler:
+    dg_jira_auth.authentication_failure_handler:
         class: %dg_jira_auth.handler.class%
 
-    dg_jira_auth.authenication_provider:
+    dg_jira_auth.authentication_provider:
         class: %dg_jira_auth.provider.class%
 
-    dg_jira_auth.authenication_listener:
+    dg_jira_auth.authentication_listener:
         class: %dg_jira_auth.listener.class%
         arguments:
             - @security.context
@@ -24,8 +24,8 @@ services:
             - @security.authentication.session_strategy
             - @security.http_utils
             - ''
-            - @dg_jira_auth.authenication_success_handler
-            - @dg_jira_auth.authenication_failure_handler
+            - @dg_jira_auth.authentication_success_handler
+            - @dg_jira_auth.authentication_failure_handler
             - ''
             - @logger
             - @event_dispatcher
