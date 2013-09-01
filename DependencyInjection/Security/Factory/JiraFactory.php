@@ -46,6 +46,7 @@ class JiraFactory extends AbstractFactory {
         $provider = 'dg_jira_auth.authentication_provider.'.$id;
         $container
             ->setDefinition($provider, new DefinitionDecorator('dg_jira_auth.authentication_provider'))
+            ->replaceArgument(1, $id)
         ;
 
         return $provider;

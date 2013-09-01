@@ -7,8 +7,16 @@ use DG\JiraAuthBundle\Security\Authentication\Token\JiraToken;
 use Symfony\Component\Security\Core\Authentication\Provider\AuthenticationProviderInterface;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Exception\AuthenticationException;
+use Symfony\Component\Security\Core\User\UserProviderInterface;
 
 class JiraProvider implements AuthenticationProviderInterface {
+
+    private $userProvider;
+
+    public function __construct(UserProviderInterface $userProvider, $providerKey)
+    {
+        $this->userProvider = $userProvider;
+    }
 
     /**
      * Checks whether this provider supports the given token.
@@ -24,13 +32,7 @@ class JiraProvider implements AuthenticationProviderInterface {
 
     public function authenticate(TokenInterface $token)
     {
-        $this->checkUserAuthentication($token);
-
-        $user = new User();
-        $user->addRole('ROLE_USER');
-        $user->setEmail('test@mail.ru');
-        $user->setUsername('test');
-
+        $user = $this->checkUserAuthentication($token);
         $token->setUser($user);
 
         return $token;
@@ -40,5 +42,7 @@ class JiraProvider implements AuthenticationProviderInterface {
         if($token->getJiraLogin() != 'test' || $token->getJiraPassword() != '123456'){
             throw new AuthenticationException('Incorrect login/password!');
         }
+
+        return $this->userProvider->loadUserByUsername($token->getJiraLogin());
     }
 }

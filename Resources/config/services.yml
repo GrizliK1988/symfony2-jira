@@ -1,9 +1,13 @@
 parameters:
+    dg_jira_auth.user_provider.class: DG\JiraAuthBundle\User\JiraUserProvider
     dg_jira_auth.listener.class: DG\JiraAuthBundle\Security\Firewall\JiraListener
     dg_jira_auth.provider.class: DG\JiraAuthBundle\Security\Authentication\Provider\JiraProvider
     dg_jira_auth.handler.class: DG\JiraAuthBundle\Security\Authentication\Handler\JiraAuthenticationHandler
 
 services:
+    dg_jira_auth.user_provider:
+        class: %dg_jira_auth.user_provider.class%
+
     dg_jira_auth.logout_handler:
         class: %dg_jira_auth.handler.class%
 
@@ -15,6 +19,7 @@ services:
 
     dg_jira_auth.authentication_provider:
         class: %dg_jira_auth.provider.class%
+        arguments: [@dg_jira_auth.user_provider, '']
 
     dg_jira_auth.authentication_listener:
         class: %dg_jira_auth.listener.class%
