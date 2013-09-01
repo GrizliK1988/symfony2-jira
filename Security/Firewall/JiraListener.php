@@ -2,7 +2,7 @@
 
 namespace DG\JiraAuthBundle\Security\Firewall;
 
-use DG\JiraAuthBundle\Security\Authenticatin\Token\JiraToken;
+use DG\JiraAuthBundle\Security\Authentication\Token\JiraToken;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\Form\Extension\Csrf\CsrfProvider\CsrfProviderInterface;
 use Symfony\Component\HttpFoundation\Request;

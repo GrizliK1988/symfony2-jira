@@ -1,5 +1,5 @@
 parameters:
-#    dg_jira_auth.example.class: DG\JiraAuthBundle\Example
+    dg_jira_auth.listener.class: DG\JiraAuthBundle\Security\Firewall\JiraListener
 
 services:
 #    dg_jira_auth.example:

@@ -1,9 +1,9 @@
 <?php
 
-namespace DG\JiraAuthBundle\Security\Provider;
+namespace DG\JiraAuthBundle\Security\Authentication\Provider;
 
 use DG\JiraAuthBundle\Entity\User;
-use DG\JiraAuthBundle\Security\Authenticatin\Token\JiraToken;
+use DG\JiraAuthBundle\Security\Authentication\Token\JiraToken;
 use Symfony\Component\Security\Core\Authentication\Provider\AuthenticationProviderInterface;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Exception\AuthenticationException;

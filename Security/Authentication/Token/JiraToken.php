@@ -1,6 +1,6 @@
 <?php
 
-namespace DG\JiraAuthBundle\Security\Authenticatin\Token;
+namespace DG\JiraAuthBundle\Security\Authentication\Token;
 
 use Symfony\Component\Security\Core\Authentication\Token\AbstractToken;
 
