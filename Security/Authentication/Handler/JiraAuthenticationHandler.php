@@ -3,6 +3,7 @@
 namespace DG\JiraAuthBundle\Security\Authentication\Handler;
 
 
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Exception\AuthenticationException;
@@ -27,7 +28,7 @@ class JiraAuthenticationHandler implements AuthenticationSuccessHandlerInterface
      */
     public function onAuthenticationFailure(Request $request, AuthenticationException $exception)
     {
-        // TODO: Implement onAuthenticationFailure() method.
+        return new RedirectResponse('http://jira_auth.loc/app_dev.php/login');
     }
 
     /**
@@ -42,7 +43,7 @@ class JiraAuthenticationHandler implements AuthenticationSuccessHandlerInterface
      */
     public function onAuthenticationSuccess(Request $request, TokenInterface $token)
     {
-        // TODO: Implement onAuthenticationSuccess() method.
+        return new RedirectResponse('http://jira_auth.loc/app_dev.php/private');
     }
 
     /**
@@ -54,6 +55,6 @@ class JiraAuthenticationHandler implements AuthenticationSuccessHandlerInterface
      */
     public function onLogoutSuccess(Request $request)
     {
-        // TODO: Implement onLogoutSuccess() method.
+        return new RedirectResponse('http://jira_auth.loc/app_dev.php/public');
     }
 }
