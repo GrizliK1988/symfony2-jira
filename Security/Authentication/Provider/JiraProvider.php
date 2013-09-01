@@ -27,11 +27,13 @@ class JiraProvider implements AuthenticationProviderInterface {
         $this->checkUserAuthentication($token);
 
         $user = new User();
-        $user->setRoles(array('ROLE_USER'));
+        $user->addRole('ROLE_USER');
         $user->setEmail('test@mail.ru');
         $user->setUsername('test');
 
         $token->setUser($user);
+
+        return $token;
     }
 
     public function checkUserAuthentication(JiraToken $token){
