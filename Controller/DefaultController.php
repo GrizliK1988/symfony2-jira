@@ -26,7 +26,6 @@ class DefaultController extends Controller
 
     /**
      * Firewall перехватит выполнение метода
-     * @return Response
      */
     public function checkAuthenticationAction(){
     }
