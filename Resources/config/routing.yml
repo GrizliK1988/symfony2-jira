@@ -13,3 +13,7 @@ dg_jira_auth_login:
 dg_jira_auth_private:
     pattern:  /private
     defaults: { _controller: DGJiraAuthBundle:Default:showPrivatePage }
+
+dg_jira_auth_check_path:
+    pattern:  /auth_check_path
+    defaults: { _controller: DGJiraAuthBundle:Default:checkAuthentication }

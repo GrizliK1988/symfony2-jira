@@ -3,6 +3,7 @@
 namespace DG\JiraAuthBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\Response;
 
 class DefaultController extends Controller
 {
@@ -21,5 +22,13 @@ class DefaultController extends Controller
 
     public function showPrivatePageAction(){
         return $this->render('DGJiraAuthBundle:Private:for_members.html.twig');
+    }
+
+    /**
+     * Firewall перехватит выполнение метода
+     * @return Response
+     */
+    public function checkAuthentication(){
+        return new Response();
     }
 }
