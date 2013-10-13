@@ -23,7 +23,10 @@ security:
             pattern:                /jira/.*
             jira_form:
                 check_path:         dg_jira_auth_check_path
-                login_path:         dg_jira_auth_login
+                login_path:         dg_jira_auth_login_path
+            logout:
+                path:   dg_jira_auth_logout
+                target: dg_jira_auth_public
             anonymous:              true
 
         dev:
@@ -49,6 +52,6 @@ security:
     access_control:
         - { path: ^/demo/secured/hello/admin/, roles: ROLE_ADMIN }
         - { path: ^/jira/public, role: IS_AUTHENTICATED_ANONYMOUSLY }
-        - { path: ^/jira/login$, role: IS_AUTHENTICATED_ANONYMOUSLY }
-        - { path: ^/jira/(.*)$, role: ROLE_USER }
+        - { path: ^/jira/private/login$, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/jira/private(.*)$, role: ROLE_USER }
         #- { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY, requires_channel: https }

@@ -29,4 +29,10 @@ class DefaultController extends Controller
      */
     public function checkAuthenticationAction(){
     }
+
+    /**
+     * Firewall перехватит выполнение метода
+     */
+    public function logoutAction(){
+    }
 }
