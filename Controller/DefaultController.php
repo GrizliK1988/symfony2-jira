@@ -21,7 +21,9 @@ class DefaultController extends Controller
     }
 
     public function showPrivatePageAction(){
-        return $this->render('DGJiraAuthBundle:Private:for_members.html.twig');
+        return $this->render('DGJiraAuthBundle:Private:for_members.html.twig', array(
+            'userEmail' => $this->get('security.context')->getToken()->getUser()->getEmail()
+        ));
     }
 
     /**

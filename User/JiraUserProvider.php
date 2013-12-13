@@ -11,12 +11,22 @@ namespace DG\JiraAuthBundle\User;
 
 
 use DG\JiraAuthBundle\Entity\User;
+use DG\JiraAuthBundle\Jira\JiraRest;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\Security\Core\Exception\UnsupportedUserException;
 use Symfony\Component\Security\Core\Exception\UsernameNotFoundException;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Security\Core\User\UserProviderInterface;
+use Symfony\Component\Security\Core\SecurityContextInterface;
 
 class JiraUserProvider implements UserProviderInterface {
+
+    private $session;
+
+    public function __construct(Session $session){
+        $this->session = $session;
+    }
 
     /**
      * Loads the user for the given username.
@@ -35,11 +45,6 @@ class JiraUserProvider implements UserProviderInterface {
      */
     public function loadUserByUsername($username)
     {
-        $user = new User();
-        $user->setUsername($username);
-        $user->setEmail('test@mail.ru');
-        $user->addRole('ROLE_USER');
-        return $user;
     }
 
     /**
@@ -61,7 +66,13 @@ class JiraUserProvider implements UserProviderInterface {
             throw new UnsupportedUserException(sprintf('Instances of "%s" are not supported.', get_class($user)));
         }
 
-        return $this->loadUserByUsername($user->getUsername());
+        $userInfo = JiraRest::getUserInfo($this->session->get('jira_auth'));
+
+        $user = new User();
+        $user->setUsername($user->getUsername());
+        $user->setEmail($userInfo->emailAddress);
+        $user->addRole('ROLE_USER');
+        return $user;
     }
 
     /**

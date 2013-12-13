@@ -7,6 +7,8 @@ parameters:
 services:
     dg_jira_auth.user_provider:
         class: %dg_jira_auth.user_provider.class%
+        arguments:
+            - @session
 
     dg_jira_auth.logout_handler:
         class: %dg_jira_auth.handler.class%

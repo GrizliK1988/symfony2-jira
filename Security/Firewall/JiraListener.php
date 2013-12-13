@@ -87,6 +87,7 @@ class JiraListener extends AbstractAuthenticationListener {
         $password = $request->get($this->options['password_parameter'], null, true);
 
         $request->getSession()->set(SecurityContextInterface::LAST_USERNAME, $username);
+        $request->getSession()->set('jira_auth', base64_encode($username.':'.$password));
 
         $token = new JiraToken();
         $token->setJiraLogin($username);

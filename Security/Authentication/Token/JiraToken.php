@@ -6,21 +6,12 @@ use Symfony\Component\Security\Core\Authentication\Token\AbstractToken;
 
 class JiraToken extends AbstractToken
 {
-    protected $jira_auth;
     protected $jira_login;
     protected $jira_password;
 
-    public function __construct(array $roles = array('ROLE_USER', 'IS_AUTHENTICATED_REMEMBERED')){
+    public function __construct(array $roles = array('ROLE_USER')){
         parent::__construct($roles);
         $this->setAuthenticated(count($roles) > 0);
-    }
-
-    public function getJiraAuth(){
-        return $this->jira_auth;
-    }
-
-    public function setJiraAuth($jira_auth){
-        $this->jira_auth = $jira_auth;
     }
 
     public function getJiraLogin(){
@@ -41,12 +32,12 @@ class JiraToken extends AbstractToken
 
     public function serialize()
     {
-        return serialize(array($this->jira_login, $this->jira_password, $this->jira_auth, parent::serialize()));
+        return serialize(array($this->jira_login, $this->jira_password, parent::serialize()));
     }
 
     public function unserialize($serialized)
     {
-        list($this->jira_login, $this->jira_password, $this->jira_auth, $parent_data) = unserialize($serialized);
+        list($this->jira_login, $this->jira_password, $parent_data) = unserialize($serialized);
         parent::unserialize($parent_data);
     }
 
