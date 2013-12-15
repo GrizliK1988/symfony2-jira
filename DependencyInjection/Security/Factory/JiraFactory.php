@@ -14,20 +14,8 @@ class JiraFactory extends AbstractFactory {
     public function __construct(){
         $this->addOption('username_parameter', '_username');
         $this->addOption('password_parameter', '_password');
-        $this->addOption('csrf_parameter', '_csrf_token');
         $this->addOption('intention', 'authenticate');
         $this->addOption('post_only', true);
-    }
-
-    public function addConfiguration(NodeDefinition $node)
-    {
-        parent::addConfiguration($node);
-
-        $node
-            ->children()
-            ->scalarNode('csrf_provider')->cannotBeEmpty()->end()
-            ->end()
-        ;
     }
 
     /**

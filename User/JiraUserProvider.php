@@ -74,6 +74,7 @@ class JiraUserProvider implements UserProviderInterface {
         $user = new User();
         $user->setUsername($user->getUsername());
         $user->setEmail($userInfo->emailAddress);
+        $user->setBase64Hash($user->getBase64Hash());
         $user->addRole('ROLE_USER');
         return $user;
     }
