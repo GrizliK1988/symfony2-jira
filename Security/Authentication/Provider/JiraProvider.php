@@ -13,10 +13,12 @@ use Symfony\Component\Security\Core\User\UserProviderInterface;
 class JiraProvider implements AuthenticationProviderInterface {
 
     private $userProvider;
+    private $jiraRest;
 
-    public function __construct(UserProviderInterface $userProvider, $providerKey)
+    public function __construct(UserProviderInterface $userProvider, $providerKey, JiraRest $jiraRest)
     {
         $this->userProvider = $userProvider;
+        $this->jiraRest = $jiraRest;
     }
 
     /**
@@ -40,13 +42,14 @@ class JiraProvider implements AuthenticationProviderInterface {
     }
 
     public function checkUserAuthentication(JiraToken $token){
-        $response = JiraRest::authenticate($token);
+        $response = $this->jiraRest->getUserInfo($token->getJiraLogin(), $token->getJiraPassword());
         if(!in_array('HTTP/1.1 200 OK', $response->getHeaders())){
             throw new AuthenticationException( 'Incorrect email and/or password' );
         }
         $userInfo = json_decode($response->getContent());
         $user = new User();
         $user->setUsername($userInfo->name);
+        $user->setBase64Hash(base64_encode($token->getJiraLogin() . ':' . $token->getJiraPassword()));
         $user->setEmail($userInfo->emailAddress);
         $user->addRole('ROLE_USER');
         return $user;

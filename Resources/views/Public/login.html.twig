@@ -1,14 +1,21 @@
 <html>
-<head></head>
+<head>
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css">
+    <link rel="stylesheet" href="//getbootstrap.com/examples/sticky-footer/sticky-footer.css">
+    <script type="text/javascript" src="//netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
+</head>
 <body>
-    You are not authenticated!
-    Fill login form, please.
-
-    <form action="{{ path('dg_jira_auth_check_path') }}" method="POST">
-        <input type="text" name="_username">
-        <input type="password" name="_password">
-        <input type="submit">
-    </form>
+    <div class="container">
+        {% if error %}
+            <div>{{ error }}</div>
+        {% endif %}
+        <form class="form-signin" role="form" action="{{ path('dg_jira_auth_check_path') }}" method="POST">
+            <h2 class="form-signin-heading">Вход в Jira</h2>
+            <input type="text" class="form-control" placeholder="Email address" name="_username" required autofocus>
+            <input type="password" class="form-control" placeholder="Password" name="_password" required>
+            <button class="btn btn-lg btn-primary btn-block" type="submit">Вход</button>
+        </form>
+    </div>
 </body>
 </html>
 

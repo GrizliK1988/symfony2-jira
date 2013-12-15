@@ -9,12 +9,10 @@ use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Exception\AuthenticationException;
 use Symfony\Component\Security\Http\Authentication\AuthenticationFailureHandlerInterface;
 use Symfony\Component\Security\Http\Authentication\AuthenticationSuccessHandlerInterface;
-use Symfony\Component\Security\Http\Logout\LogoutSuccessHandlerInterface;
 use Symfony\Component\HttpFoundation\Response;
 
 class JiraAuthenticationHandler implements AuthenticationSuccessHandlerInterface,
-    AuthenticationFailureHandlerInterface,
-    LogoutSuccessHandlerInterface{
+    AuthenticationFailureHandlerInterface{
 
     /**
      * This is called when an interactive authentication attempt fails. This is
@@ -28,7 +26,7 @@ class JiraAuthenticationHandler implements AuthenticationSuccessHandlerInterface
      */
     public function onAuthenticationFailure(Request $request, AuthenticationException $exception)
     {
-        return new RedirectResponse('http://jira_auth.loc/app_dev.php/login');
+        return new RedirectResponse($request->getSession()->get('_security.jira_secured.login_path'));
     }
 
     /**
@@ -43,18 +41,6 @@ class JiraAuthenticationHandler implements AuthenticationSuccessHandlerInterface
      */
     public function onAuthenticationSuccess(Request $request, TokenInterface $token)
     {
-        return new RedirectResponse('http://jira_auth.loc/app_dev.php/private');
-    }
-
-    /**
-     * Creates a Response object to send upon a successful logout.
-     *
-     * @param Request $request
-     *
-     * @return Response never null
-     */
-    public function onLogoutSuccess(Request $request)
-    {
-        return new RedirectResponse('http://jira_auth.loc/app_dev.php/public');
+        return new RedirectResponse($request->getSession()->get('_security.jira_secured.target_path'));
     }
 }

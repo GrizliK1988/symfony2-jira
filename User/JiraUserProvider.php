@@ -22,10 +22,10 @@ use Symfony\Component\Security\Core\SecurityContextInterface;
 
 class JiraUserProvider implements UserProviderInterface {
 
-    private $session;
+    private $jiraRest;
 
-    public function __construct(Session $session){
-        $this->session = $session;
+    public function __construct(JiraRest $jiraRest){
+        $this->jiraRest = $jiraRest;
     }
 
     /**
@@ -66,7 +66,10 @@ class JiraUserProvider implements UserProviderInterface {
             throw new UnsupportedUserException(sprintf('Instances of "%s" are not supported.', get_class($user)));
         }
 
-        $userInfo = JiraRest::getUserInfo($this->session->get('jira_auth'));
+        $decodedUserData = base64_decode($user->getBase64Hash());
+        list($username, $password) = explode(':', $decodedUserData);
+        $userInfoResponse = $this->jiraRest->getUserInfo($username, $password);
+        $userInfo = json_decode($userInfoResponse->getContent());
 
         $user = new User();
         $user->setUsername($user->getUsername());

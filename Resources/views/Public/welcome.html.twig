@@ -1,1 +1,26 @@
-Welcome!
+<html>
+<head>
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css">
+    <link rel="stylesheet" href="//getbootstrap.com/examples/sticky-footer/sticky-footer.css">
+    <script type="text/javascript" src="//netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
+</head>
+<body>
+<div id="wrap">
+
+<!-- Begin page content -->
+<div class="container">
+    <div class="page-header">
+        <h1>Добро пожаловать!</h1>
+    </div>
+    <p class="lead">Здесь вы можете протестировать работу авторизации через jira</p>
+    <p>Попробуйте <a href="{{ path('dg_jira_auth_login_path') }}">авторизоваться</a> и просмотреть <a href="{{ path('dg_jira_auth_private') }}">закрытую для гостей</a> страницу.</p>
+</div>
+</div>
+
+<div id="footer">
+    <div class="container">
+    </div>
+</div>
+</body>
+</html>
+

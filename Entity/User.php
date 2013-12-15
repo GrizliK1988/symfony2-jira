@@ -57,6 +57,13 @@ class User implements UserInterface{
      */
     private $password;
 
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="base64_hash", type="string", length=255)
+     */
+    private $base64Hash;
+
 
     /**
      * Get id
@@ -72,7 +79,7 @@ class User implements UserInterface{
      * Set username
      *
      * @param string $username
-     * @return User2
+     * @return User
      */
     public function setUsername($username)
     {
@@ -95,7 +102,7 @@ class User implements UserInterface{
      * Set email
      *
      * @param string $email
-     * @return User2
+     * @return User
      */
     public function setEmail($email)
     {
@@ -118,7 +125,7 @@ class User implements UserInterface{
      * Set roles
      *
      * @param Role[] $roles
-     * @return User2
+     * @return User
      */
     public function setRoles($roles)
     {
@@ -156,7 +163,7 @@ class User implements UserInterface{
      * Set password
      *
      * @param string $password
-     * @return User2
+     * @return User
      */
     public function setPassword($password)
     {
@@ -173,6 +180,29 @@ class User implements UserInterface{
     public function getPassword()
     {
         return $this->password;
+    }
+
+    /**
+     * Set base64Hash
+     *
+     * @param string $base64Hash
+     * @return User
+     */
+    public function setBase64Hash($base64Hash)
+    {
+        $this->base64Hash = $base64Hash;
+
+        return $this;
+    }
+
+    /**
+     * Get base64Hash
+     *
+     * @return string
+     */
+    public function getBase64Hash()
+    {
+        return $this->base64Hash;
     }
 
     /**

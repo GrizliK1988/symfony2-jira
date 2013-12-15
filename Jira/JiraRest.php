@@ -10,21 +10,22 @@
 namespace DG\JiraAuthBundle\Jira;
 use Buzz\Message;
 use Buzz\Client\Curl;
-use DG\JiraAuthBundle\Security\Authentication\Token\JiraToken;
 
 class JiraRest {
-    public static function authenticate(JiraToken $token){
+    private $jiraUrl = '';
+
+    public function __construct($jiraUrl){
+        $this->jiraUrl = $jiraUrl;
+    }
+
+    public function getUserInfo($username, $password){
         $request = new Message\Request(
             'GET',
-            '/rest/api/2/user?username=' . $token->getJiraLogin(),
-            'http://jira.rkdev.ru'
+            '/rest/api/2/user?username=' . $username,
+            $this->jiraUrl
         );
 
-        $request->addHeader('Authorization: Basic ' .
-            base64_encode(
-                $token->getJiraLogin().':'.$token->getJiraPassword()
-            )
-        );
+        $request->addHeader('Authorization: Basic ' . base64_encode($username . ':' . $password) );
         $request->addHeader('Content-Type: application/json');
 
         $response = new Message\Response();
@@ -34,25 +35,5 @@ class JiraRest {
         $client->send($request, $response);
 
         return $response;
-    }
-
-    public static function getUserInfo($authHash){
-        list($user, $password) = explode(':', base64_decode($authHash));
-        $request = new Message\Request(
-            'GET',
-            '/rest/api/2/user?username=' . $user,
-            'http://jira.rkdev.ru'
-        );
-
-        $request->addHeader('Authorization: Basic ' . $authHash );
-        $request->addHeader('Content-Type: application/json');
-
-        $response = new Message\Response();
-
-        $client = new Curl();
-        $client->setTimeout(10);
-        $client->send($request, $response);
-
-        return json_decode($response->getContent());
     }
 }
